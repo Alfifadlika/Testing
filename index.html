@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kartu Semangat Ceria 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      background: white;
+      animation: float 20s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-1000px) scale(1.5); }
+    }
+
+    .message-box {
+      text-align: center;
+      z-index: 2;
+      animation: fadeIn 2s ease;
+    }
+
+    .message-box h1 {
+      font-size: 2.8em;
+      color: #2d3436;
+      text-shadow: 2px 2px #ffffffa6;
+    }
+
+    .message-box p {
+      font-size: 1.4em;
+      color: #2d3436;
+      margin: 10px auto;
+      max-width: 500px;
+    }
+
+    .open-btn {
+      padding: 12px 30px;
+      font-size: 1em;
+      border: none;
+      border-radius: 30px;
+      background-color: #ff6b81;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .open-btn:hover {
+      background-color: #ff4757;
+      transform: scale(1.05);
+    }
+
+    .card-container {
+      display: none;
+      margin-top: 100px;
+      animation: fadeIn 1s ease;
+    }
+
+    .gift-card {
+  width: 320px;
+  max-height: 280px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 1.2em;
+  line-height: 1.6em;
+  color: #333;
+  position: relative;
+  cursor: pointer;
+  animation: pop 0.5s ease forwards;
+  overflow-y: auto;
+}
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: confettiFall 3s ease-out forwards;
+      z-index: 10;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0); opacity: 1; }
+      100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Audio -->
+  <audio id="bgMusic" src="happykids.mp3" loop></audio>
+  <audio id="clickSound" src="cartoon.wav"></audio>
+
+  <!-- Bubble Background -->
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.style.width = bubble.style.height = `${Math.random() * 40 + 20}px`;
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.bottom = `-${Math.random() * 300}px`;
+      bubble.style.animationDuration = `${10 + Math.random() * 20}s`;
+      document.body.appendChild(bubble);
+    }
+  </script>
+
+  <!-- Opening Message -->
+  <div class="message-box" id="introMessage">
+    <h1>Haiii... 🥳</h1>
+    <p>Ada yang spesial buat kamu yang butuh senyuman hari ini! 😁</p>
+    <button class="open-btn" id="openBtn">Lihat Pesan Rahasia 💌</button>
+  </div>
+
+  <!-- Card -->
+  <div class="card-container" id="cardContainer">
+    <div class="gift-card" id="giftCard">
+      Hari Rabu tiba lagi... 😎<br>
+      Waktunya semangat, jangan cuma rebahan mulu 😴💤<br><br>
+  
+      🍌 Makan pisang bareng si Ucok,<br>
+      Ternyata manis, eh bukan kamu doang kok 😜<br><br>
+  
+      💃 Hari Rabu semangatnya ngadok,<br>
+      Jangan lesu, nanti disangka remote rusak! 📺😂<br><br>
+  
+      Inget ya...<br>
+      Rabu tuh tengah minggu, bukan tengah galau!<br>
+      Gas terus sampai Jumat, jangan kasih kendor 💥
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const openBtn = document.getElementById('openBtn');
+    const introMessage = document.getElementById('introMessage');
+    const cardContainer = document.getElementById('cardContainer');
+    const giftCard = document.getElementById('giftCard');
+    const bgMusic = document.getElementById('bgMusic');
+    const clickSound = document.getElementById('clickSound');
+
+    openBtn.addEventListener('click', () => {
+      introMessage.style.display = 'none';
+      cardContainer.style.display = 'block';
+      bgMusic.play();
+    });
+
+    giftCard.addEventListener('click', () => {
+      clickSound.play();
+      launchConfetti();
+    });
+
+    function launchConfetti() {
+      for (let i = 0; i < 40; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = '-10px';
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 70%)`;
+        confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+  </script>
+
+</body>
+</html>
